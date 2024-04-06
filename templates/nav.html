@@ -1,0 +1,111 @@
+{% load static %}
+
+<div class="site-wrap">
+  <div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+
+  <header class="site-navbar py-3" role="banner" style="
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #323131;
+      z-index: 1000;
+    ">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-11 col-xl-2">
+          <h1 class="mb-0">
+            <a href="" class="text-white h2 mb-0"><b>MARENGO</b></a>
+          </h1>
+        </div>
+        <div class="col-12 col-md-10 d-none d-xl-block">
+          <nav class="site-navigation position-relative text-right" role="navigation">
+            <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
+
+              {% if request.session.userType == 'admin' %}
+              <li class="has-children h6 has-children  text-center rounded font-weight-bold">
+                <a>ADD</a>
+                <ul class="dropdown font-weight-light">
+                  <li class="">
+                    <a href="{% url 'addCrew' %}">Add Crew</a>
+                  </li>
+                  <li class="">
+                    <a href="{% url 'addPort' %}">Add Port</a>  
+                  </li>
+                  <li class="">
+                    <a href="{% url 'addShip' %}">Add Ship</a>
+                  </li>
+                  <li class="">
+                    <a href="{% url 'addContainer' %}">Add Container</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="has-children h6 has-children text-center rounded font-weight-bold">
+                <a>MANAGE</a>
+                <ul class="dropdown font-weight-light">
+                  <li class="">
+                    <a href="{% url 'crewManager' %}">Crew Manager</a>
+                  </li>
+                  <li class="">
+                    <a href="{% url 'shipManager' %}">Ship Manager</a>
+                  </li>
+                  <li class="">
+                    <a href="{% url 'portManager' %}">Port Manager</a>
+                  </li>
+                  <li class="">
+                    <a href="{% url 'containerManager' %}">Container Manager</a>
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if request.session.userType == 'crew' %}
+              <li class="text-center rounded font-weight-bold">
+                <a href="{% url 'crewProfilePage' %}">PROFILE</a>
+              </li>
+              {% endif %}
+
+              {% if request.session.userType == 'ship' %}
+              <li class="text-center rounded font-weight-bold">
+                <a href="{% url 'shipRoute' %}">ROUTE</a>
+              </li>
+              {% endif %}
+
+
+              <li class="h6 has-children text-center rounded font-weight-bold">
+                {% if 'id' in request.session %}
+                <a>{{ request.session.name }}</a>
+                {% else %}
+                <a> HELLO!</a>
+                {% endif %}
+
+                <ul class="dropdown font-weight-light">
+                  {% if 'id' in request.session %}
+                  <li class="">
+                    <a href="{% url 'logout' %}"><b>LOGOUT</b></a>
+                  </li>
+                  {% else %}
+                  <li class="">
+                    <a href="{% url 'signinPage' %}"><b>LOGIN</b></a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px">
+          <a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
